@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+    <style>
+      .chart {
+height: 250px;
+width: 50%;
+}
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+    <title>OpenLayers example</title>
+  </head>
+  <body>
+    <h1 id="demo"></h1>
+    <h2>My Map</h2>
+        <div id="map" class="chart"></div>
+    <script type="text/javascript">
+    var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function showPosition(position) {
+  x.innerHTML = "Longitude: " + position.coords.longitude + "<br>Latitude: " + position.coords.latitude;
+  //alert (position.coords.longitude+" "+position.coords.latitude)
+  var map = new ol.Map({
+ target: 'map',
+ layers: [
+ new ol.layer.Tile({
+ source: new ol.source.OSM()
+ })
+ ],
+view: new ol.View({
+center: ol.proj.fromLonLat([position.coords.longitude ,position.coords.latitude]),
+zoom: 20
+   })
+});
+}       
+    </script>
+  </body>
+</html>
